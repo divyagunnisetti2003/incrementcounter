@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alphabet Counter</title><style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+#letter-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding: 20px;
+    background-color: #61e4e4;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+#letter {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#increment, #decrement {
+    background-color: #4caf50;
+    color: white;
+}
+
+#change-size, #change-font, #decrease-size {
+    background-color: #5236f4;
+    color: white;
+}
+
+#output {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    color: #333;
+    padding: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+    </style>
+</head>
+<body>
+    <div id="letter-container">
+        <h1 id="letter">A</h1>
+    </div>
+    <button id="increment">Increment</button>
+    <button id="decrement">Decrement</button>
+    <button id="change-size">Increase Font Size</button>
+    <button id="decrease-size">Decrease Font Size</button>
+    <button id="change-font">Change Font Family</button>
+    <div id="output">Output Area</div>
+    <script>
+        const letterElement = document.getElementById("letter");
+        const incrementButton = document.getElementById("increment");
+        const decrementButton = document.getElementById("decrement");
+        const changeSizeButton = document.getElementById("change-size");
+        const decreaseSizeButton = document.getElementById("decrease-size");
+        const changeFontButton = document.getElementById("change-font");
+        const outputElement = document.getElementById("output");
+
+        let currentLetterIndex = 0;
+        const alphabet = "~!@#$%^&*()_+-=[];:',./?";
+        let textSize = 3; // Initial font size
+
+        letterElement.textContent = alphabet[currentLetterIndex];
+        letterElement.style.fontSize = `${textSize}rem`;
+
+        incrementButton.addEventListener("click", () => {
+            currentLetterIndex = (currentLetterIndex + 1) % alphabet.length;
+            letterElement.textContent = alphabet[currentLetterIndex];
+            outputElement.textContent = `Current Letter: ${alphabet[currentLetterIndex]}`;
+        });
+
+        decrementButton.addEventListener("click", () => {
+            currentLetterIndex = (currentLetterIndex - 1 + alphabet.length) % alphabet.length;
+            letterElement.textContent = alphabet[currentLetterIndex];
+            outputElement.textContent = `Current Symbol: ${alphabet[currentLetterIndex]}`;
+        });
+
+        changeSizeButton.addEventListener("click", () => {
+            textSize++;
+            letterElement.style.fontSize = `${textSize}rem`;
+            outputElement.textContent = `Font Size: ${textSize}rem`;
+        });
+
+        decreaseSizeButton.addEventListener("click", () => {
+            textSize = Math.max(textSize - 1, 1); // Ensure font size doesn't go below 1
+            letterElement.style.fontSize = `${textSize}rem`;
+            outputElement.textContent = `Font Size: ${textSize}rem`;
+        });
+
+        changeFontButton.addEventListener("click", () => {
+            const fonts = ["Arial", "Times New Roman", "Courier New", "Verdana"];
+            const randomFont = fonts[Math.floor(Math.random() * fonts.length)];
+            letterElement.style.fontFamily = randomFont;
+            outputElement.textContent = `Font: ${randomFont}`;
+        });
+    </script>
+</body>
+</html>
